@@ -7,6 +7,7 @@ pygame.init()
 
 FPS = 50
 TIMER_meleSet = 1000 # millisecondi
+
 sfondo = pygame.image.load('IMMAGINI/background.png')
 mario = pygame.image.load('IMMAGINI/mario.png')
 mela_dis = pygame.image.load('IMMAGINI/mela.png')
@@ -16,8 +17,9 @@ width = sfondo.get_width()
 height = sfondo.get_height()
 screensize = (width,height)
 screen = pygame.display.set_mode(screensize)
+Punteggio = 0
 
-#timer
+#timer frequenza mele
 TIMER_mele = pygame.USEREVENT
 pygame.time.set_timer(TIMER_mele,TIMER_meleSet) #il secondo parametro indica ogni quanto viene triggerato il timer
 
@@ -72,6 +74,8 @@ def mangia_mela():
       if mele[i].attrib != '': #ho inizializzato vuoto quindi quando viene assegnato qualcosa è l'id della mela che ha generata la collisione
         idx_mela_collisione = i #appoggio id della mela che ha generato collisione
     del mele[idx_mela_collisione] #cancello solo la mela che ha generato la collisione  
+    global Punteggio
+    Punteggio += 1 # ad ogni mela aumento il punteggio
 
     # rallento la produzione delle mele
     global TIMER_meleSet
@@ -89,6 +93,13 @@ def disegna():
     screen.blit(mario,mario_rect) 
     for m in mele:
         m.disegna(m.rect)
+
+    #disegno il punteggio
+    black=(0,0,0) #scritta nera
+    myFont = pygame.font.SysFont("Consolas", 36)
+    Label_Punteggio = myFont.render('SCORE: ' + str(Punteggio), 1, black)
+    screen.blit(Label_Punteggio, (10, 10))    
+  
 
 def collisione():
     for m in mele:
@@ -111,6 +122,7 @@ while 1:
         # aggiungo le mele a tempo
         if event.type == TIMER_mele:
             mele.append(mela_c())
+
 
         # muovo mario con le frecce
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT):
