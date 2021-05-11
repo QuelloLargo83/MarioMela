@@ -124,7 +124,9 @@ def aggiorna():
 
 inizializza()
 
-#gameloop
+##############
+## GAMELOOP ##
+##############
 while 1:
     #mario_rect.centerx += 1 #muovo mario in avanti di un pixel
     for event in pygame.event.get():
