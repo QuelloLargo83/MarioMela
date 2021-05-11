@@ -45,15 +45,13 @@ class mela_c():
         self.x = random.randint(0,width) # dimensione random da 0 fino alla larghezza massima dello schermo di gioco
         self.y = random.randint(0,height) # dimensione random da 0 fino all altezza massima dello schermo i gioco
         self.rect = mela_dis.get_rect(center = (self.x,self.y)) # creo un rettangolo intorno all'oggetto
+        self.attrib = ''
     def disegna(self,self_rect):
         screen.blit(mela_dis,self.rect)
     def check_collision(self,self_rect): #controllo la collisione tra mario e le mele
-        self.attrib = ''
+        #self.attrib = ''
         if mario_rect.colliderect(self.rect):
             self.attrib = (str(self.__getattribute__)) # ricavo un id della mela che ha generato la collisione
-            # for index in enumerate(mele):
-            #     print(index)  #anche qui ho un id dell'oggetto
-            #stop()
             mangia_mela()
         
           
@@ -72,8 +70,10 @@ def stop():
         for event in pygame.event.get():
             if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
               del mele[0:-1] #cancello tutte le mele
-              mario_rect.centerx = 100
-              mario_rect.centery = 910
+              mario_rect.centerx = marioXinit
+              mario_rect.centery = marioYinit
+              global Punteggio
+              Punteggio = 0
               pausa = False
             if event.type == pygame.QUIT: # do comunque la possibilita di uscire
               pygame.quit() 
