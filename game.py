@@ -11,6 +11,8 @@ TIMER_meleSet = 1000 # millisecondi
 TIMER_giocoSet = 1000 #timeout di gioco
 MAX_TIME = 60
 counter_gioco = MAX_TIME #secondi di gioco
+marioXinit = 100
+marioYinit = 973
 
 sfondo = pygame.image.load('IMMAGINI/background.png')
 mario = pygame.image.load('IMMAGINI/mario.png')
@@ -32,8 +34,8 @@ Timer_gioco = pygame.USEREVENT +1
 pygame.time.set_timer(Timer_gioco,TIMER_giocoSet)
 
 #coordinate iniziali di Mario
-mariox = 100
-marioy = 910
+mariox = marioXinit
+marioy = marioYinit
 
 mario_rect = mario.get_rect(center = (mariox,marioy)) #creo un rettangolo intorno a mario
 
@@ -143,16 +145,27 @@ while 1:
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT):
             mario_rect.centerx += 20
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT):
-            mario_rect.centerx -= 20  
+            mario_rect.centerx -= 20 
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_UP):
             mario_rect.centery -= 20
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN):
             mario_rect.centery += 20
 
-    #se mario esce dallo schermo di gioco, riposizionalo all'inizio   
-    if mario_rect.right >= width or mario_rect.bottom >= height or mario_rect.left <= 0 or mario_rect.top <=0: 
-            mario_rect.centerx = 100
-            mario_rect.centery = 910
+    #############################
+    ## LIMITI MOVIMENTI MARIO ###
+    #############################
+    #scorrimento infinito a sx
+    if mario_rect.right <= 0: 
+            mario_rect.right = width-1
+    # scorrimento a dx infinito
+    if mario_rect.right >= width:
+            mario_rect.left = 1
+    #mario non puo andare sotto il pavimento
+    if mario_rect.bottom >= marioYinit + mario_rect.height/2 +1:
+            mario_rect.centery = marioYinit 
+    #mario non puo uscire da sopra        
+    if mario_rect.top <=0:
+            mario_rect.top = 0
 
     #se scade tempo di gioco
     if  counter_gioco ==0:
@@ -162,5 +175,8 @@ while 1:
     disegna()
     aggiorna()
     collisione() 
+
+
+
     
     
