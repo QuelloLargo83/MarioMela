@@ -128,7 +128,7 @@ inizializza()
 ## GAMELOOP ##
 ##############
 while 1:
-    #mario_rect.centerx += 1 #muovo mario in avanti di un pixel
+    mario_rect.centery += 1 #gravita
     for event in pygame.event.get():
         # chiudo la finestra, chiudo il gioco
         if event.type == pygame.QUIT:
