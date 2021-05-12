@@ -13,9 +13,12 @@ MAX_TIME = 60
 counter_gioco = MAX_TIME #secondi di gioco
 marioXinit = 100
 marioYinit = 973
+left = False
+VEL_grav = 2
 
 sfondo = pygame.image.load('IMMAGINI/background.png')
 mario = pygame.image.load('IMMAGINI/mario.png')
+mario_flip = pygame.transform.flip(mario,True,False) # Mario girato a sx
 mela_dis = pygame.image.load('IMMAGINI/mela.png')
 gameover = pygame.image.load('IMMAGINI/gameover.png')
 gameover = pygame.transform.scale2x(gameover) # raddoppio le dimensioni di gameover
@@ -98,8 +101,12 @@ def inizializza():
     mele.append(mela_c()) #inizio a popolare la la lista di istanze della classe mele_c
     
 def disegna():
+    global left
     screen.blit(sfondo,(0,0))
-    screen.blit(mario,mario_rect) 
+    if left == False:
+        screen.blit(mario,mario_rect) 
+    if left == True:
+        screen.blit(mario_flip,mario_rect)
     for m in mele:
         m.disegna(m.rect)
 
@@ -128,7 +135,7 @@ inizializza()
 ## GAMELOOP ##
 ##############
 while 1:
-    mario_rect.centery += 1 #gravita
+    mario_rect.centery += VEL_grav #gravita
     for event in pygame.event.get():
         # chiudo la finestra, chiudo il gioco
         if event.type == pygame.QUIT:
@@ -143,13 +150,15 @@ while 1:
             counter_gioco -= 1    
 
 
-        # muovo mario con le frecce
+        # muovo mario con le frecce e salta con spazio
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT):
             mario_rect.centerx += 20
+            left = False
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT):
             mario_rect.centerx -= 20 
-        if (event.type == pygame.KEYDOWN and event.key == pygame.K_UP):
-            mario_rect.centery -= 20
+            left = True
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
+            mario_rect.centery -= 80
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN):
             mario_rect.centery += 20
 
