@@ -60,6 +60,8 @@ class mela_c():
           
 # gameover
 def stop():
+    pygame.mixer.music.load('MUSIC/smb_gameover.wav')
+    pygame.mixer.music.play(0)
     pausa = True
     #avviso che si puo ricominciare
     black=(0,0,0) #colore scritta
@@ -89,6 +91,8 @@ def mangia_mela():
     del mele[idx_mela_collisione] #cancello solo la mela che ha generato la collisione  
     global Punteggio
     Punteggio += 1 # ad ogni mela aumento il punteggio
+    pygame.mixer.music.load('SFX/smb_coin.wav')
+    pygame.mixer.music.play(0)
 
     # rallento la produzione delle mele
     # global TIMER_meleSet
