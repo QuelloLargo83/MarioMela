@@ -139,6 +139,7 @@ inizializza()
 ## GAMELOOP ##
 ##############
 while 1:
+    
     mario_rect.centery += VEL_grav #gravita
     for event in pygame.event.get():
         # chiudo la finestra, chiudo il gioco
