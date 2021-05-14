@@ -7,13 +7,13 @@ pygame.init()
 
 pygame.display.set_caption("MARIO MELA") #titolo finestra
 FPS = 50
-TIMER_meleSet = 1000 # millisecondi
-TIMER_giocoSet = 1000 #timeout di gioco
-MAX_TIME = 60
+TIMER_meleSet = 1000 # millisecondi intervallo di apparizione mele
+TIMER_giocoSet = 1000 # velocita tempo di gioco
+MAX_TIME = 60  #timeout gioco
 counter_gioco = MAX_TIME #secondi di gioco
 marioXinit = 100
 marioYinit = 973
-left = False
+left = False #parto con mario girato a dx
 VEL_grav = 2
 
 sfondo = pygame.image.load('IMMAGINI/background.png')
@@ -26,6 +26,7 @@ width = sfondo.get_width()
 height = sfondo.get_height()
 screensize = (width,height)
 screen = pygame.display.set_mode(screensize)
+mela_sound = pygame.mixer.Sound('SFX/smb_coin.wav')
 Punteggio = 0
 
 #timer frequenza mele
@@ -80,6 +81,7 @@ def stop():
               global Punteggio
               Punteggio = 0
               pausa = False
+              inizializza()
             if event.type == pygame.QUIT: # do comunque la possibilita di uscire
               pygame.quit() 
 
@@ -91,8 +93,7 @@ def mangia_mela():
     del mele[idx_mela_collisione] #cancello solo la mela che ha generato la collisione  
     global Punteggio
     Punteggio += 1 # ad ogni mela aumento il punteggio
-    pygame.mixer.music.load('SFX/smb_coin.wav')
-    pygame.mixer.music.play(0)
+    mela_sound.play() #suono
 
     # rallento la produzione delle mele
     # global TIMER_meleSet
@@ -103,6 +104,9 @@ def inizializza():
     global mele
     mele = []
     mele.append(mela_c()) #inizio a popolare la la lista di istanze della classe mele_c
+    pygame.mixer.pre_init(22050, 16, 2, 4096)
+    pygame.mixer.music.load('MUSIC/maintheme.ogg')
+    pygame.mixer.music.play(-1)
     
 def disegna():
     global left
@@ -155,14 +159,14 @@ while 1:
             counter_gioco -= 1    
 
 
-        # muovo mario con le frecce e salta con spazio
+        # muovo mario con le frecce
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT):
             mario_rect.centerx += 20
             left = False
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT):
             mario_rect.centerx -= 20 
             left = True
-        if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_UP):
             mario_rect.centery -= 80
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN):
             mario_rect.centery += 20
