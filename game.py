@@ -104,7 +104,7 @@ def inizializza():
     global mele
     mele = []
     mele.append(mela_c()) #inizio a popolare la la lista di istanze della classe mele_c
-    pygame.mixer.pre_init(22050, 16, 2, 4096)
+    pygame.mixer.pre_init(22050, 16, 2, 8192)
     pygame.mixer.music.load('MUSIC/maintheme.ogg')
     pygame.mixer.music.play(-1)
     
