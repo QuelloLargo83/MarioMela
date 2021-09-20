@@ -2,6 +2,7 @@
 
 import pygame
 import random
+import math
 
 pygame.init()
 
@@ -15,6 +16,9 @@ marioXinit = 100
 marioYinit = 973
 left = False #parto con mario girato a dx
 VEL_grav = 2
+mario_speed = 0.01
+mario_angle = random.uniform(0, math.pi*2)
+
 
 sfondo = pygame.image.load('IMMAGINI/background.png')
 mario = pygame.image.load('IMMAGINI/mario.png')
@@ -137,6 +141,8 @@ def aggiorna():
     pygame.display.update()
     pygame.time.Clock().tick(FPS) #regola la velocità del ciclo principale
 
+
+
 inizializza()
 
 ##############
@@ -144,7 +150,10 @@ inizializza()
 ##############
 while 1:
     
-    mario_rect.centery += VEL_grav #gravita
+    #mario_rect.centery += VEL_grav #gravita
+  
+
+
     for event in pygame.event.get():
         # chiudo la finestra, chiudo il gioco
         if event.type == pygame.QUIT:
