@@ -150,7 +150,7 @@ inizializza()
 ##############
 while 1:
     
-    #mario_rect.centery += VEL_grav #gravita
+    mario_rect.centery += VEL_grav #gravita
   
 
 
