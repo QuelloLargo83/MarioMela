@@ -55,8 +55,12 @@ class mela_c():
         self.rect = mela_dis.get_rect(center = (self.x,self.y)) # creo un rettangolo intorno all'oggetto
         self.attrib = ''
     def disegna(self,self_rect):
+        """disegna la mela con il suo rettangolo
+        """
         screen.blit(mela_dis,self.rect)
-    def check_collision(self,self_rect): #controllo la collisione tra mario e le mele
+    def check_collision(self,self_rect): 
+        """controllo la collisione tra mario e le mele
+        """
         #self.attrib = ''
         if mario_rect.colliderect(self.rect):
             self.attrib = (str(self.__getattribute__)) # ricavo un id della mela che ha generato la collisione
@@ -65,6 +69,8 @@ class mela_c():
           
 # gameover
 def stop():
+    """Definisce cosa avviene in caso di gameover
+    """
     pygame.mixer.music.load('MUSIC/smb_gameover.wav')
     pygame.mixer.music.play(0)
     pausa = True
@@ -91,6 +97,8 @@ def stop():
 
 # cancella la mela che ha generato la collisione
 def mangia_mela():
+    """gestione evento collisione tra Mario e la mela
+    """
     for i in range(len(mele)):
       if mele[i].attrib != '': #ho inizializzato vuoto quindi quando viene assegnato qualcosa è l'id della mela che ha generata la collisione
         idx_mela_collisione = i #appoggio id della mela che ha generato collisione
@@ -105,6 +113,8 @@ def mangia_mela():
     # pygame.time.set_timer(TIMER_mele,TIMER_meleSet)
 
 def inizializza():
+    """gestisce inizializzazione del gioco
+    """
     global mele
     mele = []
     mele.append(mela_c()) #inizio a popolare la la lista di istanze della classe mele_c
@@ -113,6 +123,8 @@ def inizializza():
     pygame.mixer.music.play(-1)
     
 def disegna():
+    """gestisce il disegno dinamico dello sfondo e degli oggetti
+    """
     global left
     screen.blit(sfondo,(0,0))
     if left == False:
@@ -134,10 +146,14 @@ def disegna():
 
 
 def collisione():
+    """gestione collisione tra i vari oggetti dello schermo
+    """
     for m in mele:
         m.check_collision(m.rect)
 
 def aggiorna():
+    """gestione aggiornamento schermo
+    """
     pygame.display.update()
     pygame.time.Clock().tick(FPS) #regola la velocità del ciclo principale
 
