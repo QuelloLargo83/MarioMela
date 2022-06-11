@@ -8,13 +8,13 @@ pygame.init()
 
 pygame.display.set_caption("MARIO MELA") #titolo finestra
 FPS = 50
-TIMER_meleSet = 1000 # millisecondi intervallo di apparizione mele
-TIMER_giocoSet = 1000 # velocita tempo di gioco
-MAX_TIME = 60  #timeout gioco
-counter_gioco = MAX_TIME #secondi di gioco
+TIMER_meleSet = 1000        # millisecondi intervallo di apparizione mele
+TIMER_giocoSet = 1000       # velocita tempo di gioco
+MAX_TIME = 60               #timeout gioco
+counter_gioco = MAX_TIME    #secondi di gioco
 marioXinit = 100
 marioYinit = 973
-left = False #parto con mario girato a dx
+left = False                #parto con mario girato a dx
 VEL_grav = 2
 mario_speed = 0.01
 mario_angle = random.uniform(0, math.pi*2)
@@ -50,8 +50,8 @@ mario_rect = mario.get_rect(center = (mariox,marioy)) #creo un rettangolo intorn
 
 class mela_c():
     def __init__(self):
-        self.x = random.randint(0,width) # dimensione random da 0 fino alla larghezza massima dello schermo di gioco
-        self.y = random.randint(0,height) # dimensione random da 0 fino all altezza massima dello schermo i gioco
+        self.x = random.randint(0,width)                        # dimensione random da 0 fino alla larghezza massima dello schermo di gioco
+        self.y = random.randint(0,height)                       # dimensione random da 0 fino all altezza massima dello schermo i gioco
         self.rect = mela_dis.get_rect(center = (self.x,self.y)) # creo un rettangolo intorno all'oggetto
         self.attrib = ''
     def disegna(self,self_rect):
@@ -63,7 +63,7 @@ class mela_c():
         """
         #self.attrib = ''
         if mario_rect.colliderect(self.rect):
-            self.attrib = (str(self.__getattribute__)) # ricavo un id della mela che ha generato la collisione
+            self.attrib = (str(self.__getattribute__))          # ricavo un id della mela che ha generato la collisione
             mangia_mela()
         
           
@@ -85,14 +85,14 @@ def stop():
     while pausa:
         for event in pygame.event.get():
             if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
-              del mele[0:-1] #cancello tutte le mele
+              del mele[0:-1]                #cancello tutte le mele
               mario_rect.centerx = marioXinit
               mario_rect.centery = marioYinit
               global Punteggio
               Punteggio = 0
               pausa = False
               inizializza()
-            if event.type == pygame.QUIT: # do comunque la possibilita di uscire
+            if event.type == pygame.QUIT:   # do comunque la possibilita di uscire
               pygame.quit() 
 
 # cancella la mela che ha generato la collisione
@@ -100,12 +100,12 @@ def mangia_mela():
     """gestione evento collisione tra Mario e la mela
     """
     for i in range(len(mele)):
-      if mele[i].attrib != '': #ho inizializzato vuoto quindi quando viene assegnato qualcosa è l'id della mela che ha generata la collisione
-        idx_mela_collisione = i #appoggio id della mela che ha generato collisione
-    del mele[idx_mela_collisione] #cancello solo la mela che ha generato la collisione  
+      if mele[i].attrib != '':      # ho inizializzato vuoto quindi quando viene assegnato qualcosa è l'id della mela che ha generata la collisione
+        idx_mela_collisione = i     # appoggio id della mela che ha generato collisione
+    del mele[idx_mela_collisione]   # cancello solo la mela che ha generato la collisione  
     global Punteggio
-    Punteggio += 1 # ad ogni mela aumento il punteggio
-    mela_sound.play() #suono
+    Punteggio += 1                  # ad ogni mela aumento il punteggio
+    mela_sound.play()               #suono
 
     # rallento la produzione delle mele
     # global TIMER_meleSet
@@ -117,7 +117,7 @@ def inizializza():
     """
     global mele
     mele = []
-    mele.append(mela_c()) #inizio a popolare la la lista di istanze della classe mele_c
+    mele.append(mela_c())           #inizio a popolare la la lista di istanze della classe mele_c
     pygame.mixer.pre_init(22050, 16, 2, 8192)
     pygame.mixer.music.load('MUSIC/maintheme.ogg')
     pygame.mixer.music.play(-1)
