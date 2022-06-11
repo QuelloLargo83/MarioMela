@@ -7,7 +7,7 @@ import math
 pygame.init()
 
 pygame.display.set_caption("MARIO MELA") #titolo finestra
-FPS = 50
+FPS = 60
 TIMER_meleSet = 1000        # millisecondi intervallo di apparizione mele
 TIMER_giocoSet = 1000       # velocita tempo di gioco
 MAX_TIME = 60               #timeout gioco
