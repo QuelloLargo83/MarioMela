@@ -1,6 +1,6 @@
 ## FUNZIONAMENTO
 
-Questo è un tentativo di imparare ad usare PYGAME
+Piccolo videogioco di SuperMario basato su PYGAME
 
 Mario si puo muovere con le frecce direzionali per poter mangiare le mele.
 
