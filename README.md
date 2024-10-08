@@ -1,4 +1,4 @@
-## FUNZIONAMENTO
+# FUNZIONAMENTO
 
 Piccolo videogioco di SuperMario basato su PYGAME
 

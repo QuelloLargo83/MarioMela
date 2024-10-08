@@ -3,6 +3,7 @@
 import pygame
 import random
 import math
+from OptionChooser import *
 
 pygame.init()
 
@@ -19,9 +20,16 @@ VEL_grav = 2
 mario_speed = 0.01
 mario_angle = random.uniform(0, math.pi*2)
 
+chooseChar = input("Scegli il personaggio (1 mario, 2 peach): ")
+
+match int(chooseChar):
+    case 1:
+        mario = pygame.image.load('IMMAGINI/mario.png')
+    case 2:
+        mario = pygame.image.load('IMMAGINI/peach_r.png')
 
 sfondo = pygame.image.load('IMMAGINI/background.png')
-mario = pygame.image.load('IMMAGINI/mario.png')
+# mario = pygame.image.load('IMMAGINI/peach_r.png')
 mario_flip = pygame.transform.flip(mario,True,False) # Mario girato a sx
 mela_dis = pygame.image.load('IMMAGINI/mela.png')
 gameover = pygame.image.load('IMMAGINI/gameover.png')
@@ -31,6 +39,7 @@ height = sfondo.get_height()
 screensize = (width,height)
 screen = pygame.display.set_mode(screensize)
 mela_sound = pygame.mixer.Sound('SFX/smb_coin.wav')
+mariojump_sound = pygame.mixer.Sound('SFX/marioJump.mp3')
 Punteggio = 0
 
 #timer frequenza mele
@@ -159,7 +168,16 @@ def aggiorna():
 
 
 
+### SCHERMATA INIZIALE ####
+winOption = OptionChooser(screen,"IMMAGINI/background.png")
+
+while winOption.running == 1:
+    winOption.disegnaschermo()
+    winOption.aggiorna()
+##########################
+
 inizializza()
+
 
 ##############
 ## GAMELOOP ##
@@ -192,7 +210,9 @@ while 1:
             mario_rect.centerx -= 20 
             left = True
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_UP):
+            mariojump_sound.play()
             mario_rect.centery -= 80
+            
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN):
             mario_rect.centery += 20
 
