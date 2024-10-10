@@ -11,7 +11,7 @@ pygame.display.set_caption("MARIO MELA") #titolo finestra
 FPS = 60
 TIMER_meleSet = 1000        # millisecondi intervallo di apparizione mele
 TIMER_giocoSet = 1000       # velocita tempo di gioco
-MAX_TIME = 60               #timeout gioco
+MAX_TIME = 120               #timeout gioco
 counter_gioco = MAX_TIME    #secondi di gioco
 marioXinit = 100
 marioYinit = 973
@@ -19,6 +19,7 @@ left = False                #parto con mario girato a dx
 VEL_grav = 2
 mario_speed = 0.01
 mario_angle = random.uniform(0, math.pi*2)
+FONTCOLOR = (255,255,255)
 
 chooseChar = input("Scegli il personaggio (1 mario, 2 peach): ")
 
@@ -84,9 +85,9 @@ def stop():
     pygame.mixer.music.play(0)
     pausa = True
     #avviso che si puo ricominciare
-    black=(0,0,0) #colore scritta
+    # black=(0,0,0) #colore scritta
     myFont = pygame.font.SysFont("Consolas", 14)
-    Label = myFont.render("PREMI SPAZIO PER RICOMINCIARE", 1, black)
+    Label = myFont.render("PREMI SPAZIO PER RICOMINCIARE", 1, FONTCOLOR)
     screen.blit(Label, (width/2-60,height/2+100))
     screen.blit(gameover,(width/2 - 130,height/2)) #disegno gameover
     aggiorna()
@@ -144,13 +145,13 @@ def disegna():
         m.disegna(m.rect)
 
     #disegno il punteggio
-    black=(0,0,0) #scritta nera
+    # black=(0,0,0) #scritta nera
     myFont = pygame.font.SysFont("Consolas", 36)
-    Label_Punteggio = myFont.render('SCORE: ' + str(Punteggio), 1, black)
+    Label_Punteggio = myFont.render('SCORE: ' + str(Punteggio), 1, FONTCOLOR)
     screen.blit(Label_Punteggio, (10, 10))   
 
     #disegno tempo di gioco
-    Label_CounterGioco = myFont.render('TIME: ' + str(counter_gioco), 1, black)
+    Label_CounterGioco = myFont.render('TIME: ' + str(counter_gioco), 1, FONTCOLOR)
     screen.blit(Label_CounterGioco, (10, 40))   
 
 
