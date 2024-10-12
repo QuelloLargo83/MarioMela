@@ -235,6 +235,7 @@ while 1:
     if mario_rect.top <=0:
             mario_rect.top = 0
 
+
     #se scade tempo di gioco
     if  counter_gioco ==0:
         counter_gioco = MAX_TIME
