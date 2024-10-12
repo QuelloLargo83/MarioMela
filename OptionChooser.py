@@ -46,7 +46,6 @@ class OptionChooser(Window):
         self.screen.blit(self.personaggio1, self.p1_rect)
         self.screen.blit(self.personaggio2, self.p2_rect)
 
-
         # disegno i personaggi per la scelta 
         self.screen.blit(self.personaggio1, self.p1_rect)
         self.screen.blit(self.personaggio2, self.p2_rect)
@@ -54,6 +53,10 @@ class OptionChooser(Window):
         # disegno l'immagine della scelta
         self.screen.blit(self.sceltaimg,self.scelta_rect)
         
+        # scrivo cosa fare
+        myFont = pygame.font.SysFont("Consolas", 36)
+        Label_ScegliPers = myFont.render('SCEGLI IL PERSONAGGIO', 1, (255,255,255))
+        self.screen.blit(Label_ScegliPers, (self.p1_rect.centerx, self.p1_rect.centery - self.personaggio1.get_height()))   
     
         ##################################
         #  GESTIONE EVENTI DEI PULSANTI  #

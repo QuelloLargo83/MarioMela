@@ -26,14 +26,13 @@ width = sfondo.get_width()
 height = sfondo.get_height()
 screensize = (width,height)
 screen = pygame.display.set_mode(screensize)
+mela_dis = pygame.image.load('IMMAGINI/mela.png')
+gameover = pygame.image.load('IMMAGINI/gameover.png')
+gameover = pygame.transform.scale2x(gameover) # raddoppio le dimensioni di gameover
+mela_sound = pygame.mixer.Sound('SFX/smb_coin.wav')
+mariojump_sound = pygame.mixer.Sound('SFX/marioJump.mp3')
+Punteggio = 0
 
-# chooseChar = input("Scegli il personaggio (1 mario, 2 peach): ")
-
-# match int(chooseChar):
-#     case 1:
-#         mario = pygame.image.load('IMMAGINI/mario.png')
-#     case 2:
-#         mario = pygame.image.load('IMMAGINI/peach_r.png')
 
 ### SCHERMATA INIZIALE ####
 winOption = OptionChooser(screen,"IMMAGINI/background.png")
@@ -42,7 +41,6 @@ while winOption.running == 1:
     winOption.disegnaschermo()
     winOption.aggiorna()
 
-print("scelta personaggio : " + str(winOption.ret_scelta))
 match int(winOption.ret_scelta):
     case 1:
         mario = pygame.image.load('IMMAGINI/mario.png')
@@ -50,18 +48,9 @@ match int(winOption.ret_scelta):
         mario = pygame.image.load('IMMAGINI/peach_r.png')
 ###############################
 
-# sfondo = pygame.image.load('IMMAGINI/background.png')
+
 mario_flip = pygame.transform.flip(mario,True,False) # Mario girato a sx
-mela_dis = pygame.image.load('IMMAGINI/mela.png')
-gameover = pygame.image.load('IMMAGINI/gameover.png')
-gameover = pygame.transform.scale2x(gameover) # raddoppio le dimensioni di gameover
-# width = sfondo.get_width()
-# height = sfondo.get_height()
-# screensize = (width,height)
-# screen = pygame.display.set_mode(screensize)
-mela_sound = pygame.mixer.Sound('SFX/smb_coin.wav')
-mariojump_sound = pygame.mixer.Sound('SFX/marioJump.mp3')
-Punteggio = 0
+
 
 #timer frequenza mele
 TIMER_mele = pygame.USEREVENT
@@ -95,9 +84,10 @@ class mela_c():
         if mario_rect.colliderect(self.rect):
             self.attrib = (str(self.__getattribute__))          # ricavo un id della mela che ha generato la collisione
             mangia_mela()
-        
-          
-# gameover
+
+############      
+# GAMEOVER #
+############
 def stop():
     """Definisce cosa avviene in caso di gameover
     """
