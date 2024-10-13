@@ -20,8 +20,13 @@ VEL_grav = 2
 mario_speed = 0.01
 mario_angle = random.uniform(0, math.pi*2)
 FONTCOLOR = (255,255,255)   # colore delle scritte
+FONTNAME = 'Consolas'
+BG_IMAGE = 'IMMAGINI/background.png'
+CHOICE_IMAGE = 'IMMAGINI/mushroom.png'
+P1_IMAGE = 'IMMAGINI/mario.png'
+P2_IMAGE = 'IMMAGINI/peach_r.png'
 
-sfondo = pygame.image.load('IMMAGINI/background.png')
+sfondo = pygame.image.load(BG_IMAGE)
 width = sfondo.get_width()
 height = sfondo.get_height()
 screensize = (width,height)
@@ -35,7 +40,15 @@ Punteggio = 0
 
 
 ### SCHERMATA INIZIALE ####
-winOption = OptionChooser(screen,"IMMAGINI/background.png")
+winOption = OptionChooser(
+                          screen, 
+                          bg=BG_IMAGE,
+                          choiceimg=CHOICE_IMAGE,
+                          p1image=P1_IMAGE,
+                          p2image=P2_IMAGE,
+                          font=FONTNAME,
+                          fontcolor=FONTCOLOR
+                         )
 
 while winOption.running == 1:
     winOption.disegnaschermo()

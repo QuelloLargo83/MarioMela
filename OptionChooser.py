@@ -5,23 +5,26 @@ class OptionChooser(Window):
     """classe per gestione schermata iniziale opzioni
     """
 
-    def __init__(self, screen, sfondo):
+    def __init__(self, screen, bg, choiceimg, p1image, p2image, font, fontcolor):
         super().__init__
         self.ret_scelta = 1 # default scelta mario
         self.running = 1
         self.screen = screen
-        self.sfondo = pygame.image.load(sfondo)
-        self.sceltaimg = pygame.image.load('IMMAGINI/mushroom.png')
+        self.font = font
+        self.fontcolor = fontcolor
+        self.sfondo = pygame.image.load(bg)
+        self.sceltaimg = pygame.image.load(choiceimg)
         
-        self.personaggio1 = pygame.image.load('IMMAGINI/mario.png')
-        self.personaggio2 = pygame.image.load('IMMAGINI/peach_r.png')
+        # carico i personaggi per la scelta sulla finestra iniziale
+        self.personaggio1 = pygame.image.load(p1image)
+        self.personaggio2 = pygame.image.load(p2image)
 
         self.h1 = self.personaggio1.get_height()
 
         # calcolo posizioni per immagine scelta
         self.hscreen = self.sfondo.get_height()
         self.wscreen = self.sfondo.get_width()
-        self.screencenter = (self.wscreen/2 ,self.hscreen/2)
+        self.screencenter = (self.wscreen//2 ,self.hscreen//2)
 
         # disegno i rettangoli intorno ai personaggi e li posiziono rispetto al centro del bg
         self.p1_rect = self.personaggio1.get_rect( center= (self.screencenter[0], self.screencenter[1]))
@@ -43,9 +46,6 @@ class OptionChooser(Window):
         self.screen.blit(self.sfondo, (0,0))
         # self.playsound()
 
-        self.screen.blit(self.personaggio1, self.p1_rect)
-        self.screen.blit(self.personaggio2, self.p2_rect)
-
         # disegno i personaggi per la scelta 
         self.screen.blit(self.personaggio1, self.p1_rect)
         self.screen.blit(self.personaggio2, self.p2_rect)
@@ -54,8 +54,8 @@ class OptionChooser(Window):
         self.screen.blit(self.sceltaimg,self.scelta_rect)
         
         # scrivo cosa fare
-        myFont = pygame.font.SysFont("Consolas", 36)
-        Label_ScegliPers = myFont.render('SCEGLI IL PERSONAGGIO', 1, (255,255,255))
+        myFont = pygame.font.SysFont(self.font, 36)
+        Label_ScegliPers = myFont.render('SCEGLI IL PERSONAGGIO', 1, self.fontcolor)
         self.screen.blit(Label_ScegliPers, (self.p1_rect.centerx, self.p1_rect.centery - self.personaggio1.get_height()))   
     
         ##################################
