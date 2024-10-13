@@ -56,9 +56,9 @@ while winOption.running == 1:
 
 match int(winOption.ret_scelta):
     case 1:
-        mario = pygame.image.load('IMMAGINI/mario.png')
+        mario = pygame.image.load(P1_IMAGE)
     case 2:
-        mario = pygame.image.load('IMMAGINI/peach_r.png')
+        mario = pygame.image.load(P2_IMAGE)
 ###############################
 
 

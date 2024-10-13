@@ -34,6 +34,8 @@ class OptionChooser(Window):
         self.scelta_rect = self.sceltaimg.get_rect(center = (self.p1_rect.centerx +  70 , self.p1_rect.centery))
 
     def destroy(self):
+        """chiude la finestra e libera la memoria
+        """
         super().destroy()
 
     def playsound(self):
@@ -43,6 +45,8 @@ class OptionChooser(Window):
         pygame.event.wait()
 
     def disegnaschermo(self):
+        """disegna tutti gli elementi della finestra
+        """
         self.screen.blit(self.sfondo, (0,0))
         # self.playsound()
 
