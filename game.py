@@ -11,7 +11,7 @@ pygame.display.set_caption("MARIO MELA") #titolo finestra
 FPS = 60
 TIMER_meleSet = 1000        # millisecondi intervallo di apparizione mele
 TIMER_giocoSet = 1000       # velocita tempo di gioco
-MAX_TIME = 120              # timeout gioco
+MAX_TIME = 10              # timeout gioco
 counter_gioco = MAX_TIME    # secondi di gioco
 marioXinit = 100            # posizione X iniziale di mario all'interno della finestra
 marioYinit = 973            # posizione Y iniziale di mario all'interno della finestra
@@ -39,31 +39,54 @@ mariojump_sound = pygame.mixer.Sound('SFX/marioJump.mp3')
 Punteggio = 0
 
 
-### SCHERMATA INIZIALE ####
-winOption = OptionChooser(
-                          screen, 
-                          bg=BG_IMAGE,
-                          choiceimg=CHOICE_IMAGE,
-                          p1image=P1_IMAGE,
-                          p2image=P2_IMAGE,
-                          font=FONTNAME,
-                          fontcolor=FONTCOLOR
-                         )
+def SchermataIniziale():
+    """Gestione Schermata iniziale
 
-while winOption.running == 1:
-    winOption.disegnaschermo()
-    winOption.aggiorna()
+    Returns:
+        pygame.image : immagine pygame del personaggio da usare
+    """
+    ### SCHERMATA INIZIALE ####
+    winOption = OptionChooser(
+                            screen, 
+                            bg=BG_IMAGE,
+                            choiceimg=CHOICE_IMAGE,
+                            p1image=P1_IMAGE,
+                            p2image=P2_IMAGE,
+                            font=FONTNAME,
+                            fontcolor=FONTCOLOR
+                            )
 
-match int(winOption.ret_scelta):
-    case 1:
-        mario = pygame.image.load(P1_IMAGE)
-    case 2:
-        mario = pygame.image.load(P2_IMAGE)
-###############################
+    while winOption.running == 1:
+        winOption.disegnaschermo()
+        winOption.aggiorna()
 
+    match int(winOption.ret_scelta):
+        case 1:
+            mario = pygame.image.load(P1_IMAGE)
+        case 2:
+            mario = pygame.image.load(P2_IMAGE)
+    
+    return mario
+    ###############################
 
-mario_flip = pygame.transform.flip(mario,True,False) # Mario girato a sx
+def MarioInit(mario):
+    """Inizializza il personaggio
 
+    Args:
+        mario (pygame.image): immagine pygame del personaggio
+
+    Returns:
+        _type_: rettangolo del personaggio, rect pers flippato
+    """
+    mario_flip = pygame.transform.flip(mario,True,False) # Mario girato a sx
+
+    #coordinate iniziali di Mario
+    mariox = marioXinit
+    marioy = marioYinit
+
+    mario_rect = mario.get_rect(center = (mariox,marioy)) #creo un rettangolo intorno a mario
+
+    return mario_rect,mario_flip
 
 #timer frequenza mele
 TIMER_mele = pygame.USEREVENT
@@ -72,14 +95,6 @@ pygame.time.set_timer(TIMER_mele,TIMER_meleSet) #il secondo parametro indica ogn
 #timer di gioco
 Timer_gioco = pygame.USEREVENT +1 
 pygame.time.set_timer(Timer_gioco,TIMER_giocoSet)
-
-#coordinate iniziali di Mario
-mariox = marioXinit
-marioy = marioYinit
-
-mario_rect = mario.get_rect(center = (mariox,marioy)) #creo un rettangolo intorno a mario
-
-
 class mela_c():
     def __init__(self):
         self.x = random.randint(0,width)                        # dimensione random da 0 fino alla larghezza massima dello schermo di gioco
@@ -107,8 +122,8 @@ def stop():
     pygame.mixer.music.load('MUSIC/smb_gameover.wav')
     pygame.mixer.music.play(0)
     pausa = True
+
     #avviso che si puo ricominciare
-    # black=(0,0,0) #colore scritta
     myFont = pygame.font.SysFont("Consolas", 14)
     Label = myFont.render("PREMI SPAZIO PER RICOMINCIARE", 1, FONTCOLOR)
     screen.blit(Label, (width/2-60,height/2+100))
@@ -119,14 +134,19 @@ def stop():
         for event in pygame.event.get():
             if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
               del mele[0:-1]                #cancello tutte le mele
+            
+              InitMusic()
               mario_rect.centerx = marioXinit
               mario_rect.centery = marioYinit
               global Punteggio
               Punteggio = 0
               pausa = False
-              inizializza()
+
+
             if event.type == pygame.QUIT:   # do comunque la possibilita di uscire
               pygame.quit() 
+    
+  
 
 # cancella la mela che ha generato la collisione
 def mangia_mela():
@@ -145,15 +165,25 @@ def mangia_mela():
     # TIMER_meleSet = TIMER_meleSet + 1000
     # pygame.time.set_timer(TIMER_mele,TIMER_meleSet)
 
+def InitMusic():
+    """Inizializzazione musica di sistema
+    """
+    pygame.mixer.pre_init(22050, 16, 2, 8192)
+    pygame.mixer.music.load('MUSIC/maintheme.ogg')
+    pygame.mixer.music.play(-1)
+
 def inizializza():
     """gestisce inizializzazione del gioco
     """
     global mele
     mele = []
     mele.append(mela_c())           #inizio a popolare la la lista di istanze della classe mele_c
-    pygame.mixer.pre_init(22050, 16, 2, 8192)
-    pygame.mixer.music.load('MUSIC/maintheme.ogg')
-    pygame.mixer.music.play(-1)
+    
+    InitMusic()
+    mario = SchermataIniziale()
+    mario_rect, mario_flip = MarioInit(mario)
+
+    return mario_rect, mario, mario_flip
     
 def disegna():
     """gestisce il disegno dinamico dello sfondo e degli oggetti
@@ -192,7 +222,7 @@ def aggiorna():
 
 
 
-inizializza()
+mario_rect, mario, mario_flip = inizializza()
 
 
 ##############
@@ -200,10 +230,9 @@ inizializza()
 ##############
 while 1:
     
+   
     mario_rect.centery += VEL_grav #gravita
   
-
-
     for event in pygame.event.get():
         # chiudo la finestra, chiudo il gioco
         if event.type == pygame.QUIT:
