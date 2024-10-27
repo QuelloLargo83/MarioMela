@@ -6,11 +6,9 @@ import math
 from OptionChooser import *
 from ScoreMng import *
 
-pygame.init()
-# Init oggetto Salvataggio Punteggio
-ScMng = ScoreMng("scores.db") 
-
-pygame.display.set_caption("MARIO MELA") #titolo finestra
+########################################
+############# IMPOSTAZIONI #############
+########################################
 FPS = 60
 TIMER_meleSet = 1000        # millisecondi intervallo di apparizione mele
 TIMER_giocoSet = 1000       # velocita tempo di gioco
@@ -28,6 +26,16 @@ BG_IMAGE = 'IMMAGINI/background.png'
 CHOICE_IMAGE = 'IMMAGINI/mushroom.png'
 P1_IMAGE = 'IMMAGINI/mario.png'
 P2_IMAGE = 'IMMAGINI/peach_r.png'
+#################################################
+
+
+
+pygame.init()
+# Init oggetto Salvataggio Punteggio
+ScMng = ScoreMng("scores.db") 
+
+pygame.display.set_caption("MARIO MELA") #titolo finestra
+
 
 sfondo = pygame.image.load(BG_IMAGE)
 width = sfondo.get_width()
