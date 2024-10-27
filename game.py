@@ -3,6 +3,7 @@
 import pygame
 import random
 import math
+import os
 from OptionChooser import *
 from ScoreMng import *
 
@@ -26,13 +27,17 @@ BG_IMAGE = 'IMMAGINI/background.png'
 CHOICE_IMAGE = 'IMMAGINI/mushroom.png'
 P1_IMAGE = 'IMMAGINI/mario.png'
 P2_IMAGE = 'IMMAGINI/peach_r.png'
+DB_PATH_NAME = 'DB'
+SCORE_DB_FILE = 'scores.db'
 #################################################
 
-
+# settaggio percorso e file database
+cwd = os.path.dirname(__file__)
+dbfile = cwd + '/' + DB_PATH_NAME +"/"+ SCORE_DB_FILE
 
 pygame.init()
 # Init oggetto Salvataggio Punteggio
-ScMng = ScoreMng("scores.db") 
+ScMng = ScoreMng(dbfile) 
 
 pygame.display.set_caption("MARIO MELA") #titolo finestra
 
@@ -151,7 +156,9 @@ def stop():
               mario_rect.centery = marioYinit
               global Punteggio
               
-              ScMng.InsertScore(Punteggio)
+              ScMng.InsertScore(score=Punteggio,timer=MAX_TIME)
+
+              print(ScMng.ExecSelectQ("SELECT * FROM SCORES")) ## da gestire la visualizzazione del top score
 
               Punteggio = 0
               pausa = False
