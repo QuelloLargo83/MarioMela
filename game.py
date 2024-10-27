@@ -4,8 +4,11 @@ import pygame
 import random
 import math
 from OptionChooser import *
+from ScoreMng import *
 
 pygame.init()
+# Init oggetto Salvataggio Punteggio
+ScMng = ScoreMng("scores.db") 
 
 pygame.display.set_caption("MARIO MELA") #titolo finestra
 FPS = 60
@@ -139,6 +142,9 @@ def stop():
               mario_rect.centerx = marioXinit
               mario_rect.centery = marioYinit
               global Punteggio
+              
+              ScMng.InsertScore(Punteggio)
+
               Punteggio = 0
               pausa = False
 
