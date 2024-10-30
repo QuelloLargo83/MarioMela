@@ -36,8 +36,7 @@ cwd = os.path.dirname(__file__)
 dbfile = cwd + '/' + DB_PATH_NAME +"/"+ SCORE_DB_FILE
 
 pygame.init()
-# Init oggetto Salvataggio Punteggio
-ScMng = ScoreMng(dbfile) 
+
 
 pygame.display.set_caption("MARIO MELA") #titolo finestra
 
@@ -54,6 +53,8 @@ mela_sound = pygame.mixer.Sound('SFX/smb_coin.wav')
 mariojump_sound = pygame.mixer.Sound('SFX/marioJump.mp3')
 Punteggio = 0
 
+# Init oggetto Salvataggio Punteggio
+ScMng = ScoreMng(dbfile, screen) 
 
 def SchermataIniziale():
     """Gestione Schermata iniziale
@@ -158,7 +159,11 @@ def stop():
               
               ScMng.InsertScore(score=Punteggio,timer=MAX_TIME)
 
-              print(ScMng.ExecSelectQ("SELECT * FROM SCORES")) ## da gestire la visualizzazione del top score
+              ScMng.showboard = 1
+              while ScMng.showboard == 1:
+                ScMng.showleader_board(myFont, FONTCOLOR)
+                ScMng.aggiorna()
+                
 
               Punteggio = 0
               pausa = False

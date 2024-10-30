@@ -92,3 +92,4 @@ class OptionChooser(Window):
     ## aggiorna lo schermo
     def aggiorna(self):
         pygame.display.update()
+
