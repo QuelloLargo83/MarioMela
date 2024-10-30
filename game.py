@@ -141,7 +141,7 @@ def stop():
     pausa = True
 
     #avviso che si puo ricominciare
-    myFont = pygame.font.SysFont("Consolas", 14)
+    myFont = pygame.font.SysFont(FONTNAME, 14)
     Label = myFont.render("PREMI SPAZIO PER RICOMINCIARE", 1, FONTCOLOR)
     screen.blit(Label, (width/2-60,height/2+100))
     screen.blit(gameover,(width/2 - 130,height/2)) #disegno gameover
@@ -158,10 +158,12 @@ def stop():
               global Punteggio
               
               ScMng.InsertScore(score=Punteggio,timer=MAX_TIME)
-
+              
+              # mostro i top scorer
+              fontScore = pygame.font.SysFont(FONTNAME, 16)
               ScMng.showboard = 1
               while ScMng.showboard == 1:
-                ScMng.showleader_board(myFont, FONTCOLOR)
+                ScMng.showleader_board(fontScore, FONTCOLOR)
                 ScMng.aggiorna()
                 
 
@@ -225,7 +227,7 @@ def disegna():
 
     #disegno il punteggio
     # black=(0,0,0) #scritta nera
-    myFont = pygame.font.SysFont("Consolas", 36)
+    myFont = pygame.font.SysFont(FONTNAME, 36)
     Label_Punteggio = myFont.render('SCORE: ' + str(Punteggio), 1, FONTCOLOR)
     screen.blit(Label_Punteggio, (10, 10))   
 

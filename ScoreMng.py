@@ -63,14 +63,21 @@ class ScoreMng(Window):
         self.ExecQuery(query)
 
     def showleader_board(self, font_style, font_color):
-        i = 35
+        """mostra la scoreboard a schermo
+
+        Args:
+            font_style (pygame.font.sysfont): tipo e dimensione del font
+            font_color (game.fontcolor): colore rgb del font
+        """
+        i = 35 # spazio verticale tra una riga e l'altra in pixel
         column_space = 400
+
 
         head1 = font_style.render(f'DATE', True, font_color)
         head2 = font_style.render(f'PLAYER', True, font_color)
         head3 = font_style.render(f'SCORE', True, font_color)
 
-        dis = self.screen
+        dis = self.screen #disegno sullo schermo generale
         dis_width = self.screen.get_width()
 
         dis.blit(head1, [dis_width / 5, (700 / 4) + 5])
