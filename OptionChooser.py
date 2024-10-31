@@ -89,6 +89,10 @@ class OptionChooser(Window):
                 self.running = 0
                 self.destroy()
 
+            # gestione uscita dal gioco in fase di scelta
+            if (event.type == pygame.KEYDOWN and event.key ==  pygame.K_ESCAPE):
+                pygame.quit()
+
     ## aggiorna lo schermo
     def aggiorna(self):
         pygame.display.update()

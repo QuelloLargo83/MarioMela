@@ -13,7 +13,7 @@ from ScoreMng import *
 FPS = 60
 TIMER_meleSet = 1000        # millisecondi intervallo di apparizione mele
 TIMER_giocoSet = 1000       # velocita tempo di gioco
-MAX_TIME = 10              # timeout gioco
+MAX_TIME = 100              # timeout gioco
 counter_gioco = MAX_TIME    # secondi di gioco
 marioXinit = 100            # posizione X iniziale di mario all'interno della finestra
 marioYinit = 973            # posizione Y iniziale di mario all'interno della finestra
@@ -176,7 +176,23 @@ def stop():
             if event.type == pygame.QUIT:   # do comunque la possibilita di uscire
               pygame.quit() 
     
-  
+def pausa():
+    """gestione pausa gioco
+    """
+    pausa = True
+    pygame.mixer.music.pause()
+
+    #avviso che si puo ricominciare
+    myFont = pygame.font.SysFont(FONTNAME, 14)
+    Label = myFont.render("PREMI SPAZIO PER RICOMINCIARE", 1, FONTCOLOR)
+    screen.blit(Label, (width/2-60,height/2+100))
+    aggiorna()
+
+    while pausa:
+        for event in pygame.event.get():
+            if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
+                pygame.mixer.music.unpause()
+                pausa = False
 
 # cancella la mela che ha generato la collisione
 def mangia_mela():
@@ -251,7 +267,7 @@ def aggiorna():
     pygame.time.Clock().tick(FPS) #regola la velocità del ciclo principale
 
 
-
+# inizializzo il personaggio
 mario_rect, mario, mario_flip = inizializza()
 
 
@@ -262,11 +278,15 @@ while 1:
     
    
     mario_rect.centery += VEL_grav #gravita
-  
+    
+    # EVENTI GESTITI DURANTE IL GIOCO #
     for event in pygame.event.get():
         # chiudo la finestra, chiudo il gioco
-        if event.type == pygame.QUIT:
-           pygame.quit()     
+        # if event.type == pygame.QUIT:
+        #    pygame.quit()     
+        
+        if (event.type == pygame.KEYDOWN and event.key ==  pygame.K_ESCAPE):
+                pygame.quit()
         
         # aggiungo le mele a tempo
         if event.type == TIMER_mele:
@@ -291,6 +311,9 @@ while 1:
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN):
             mario_rect.centery += 20
 
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
+            pausa()
+    
     #############################
     ## LIMITI MOVIMENTI MARIO ###
     #############################
