@@ -1,3 +1,9 @@
+ifeq ($(OS),Windows_NT)
+	RM = del /F /Q
+else
+	RM = rm
+endif
+
 VENV = venv
 PYTHON = $(VENV)/bin/python3
 PIP = $(VENV)/bin/pip
@@ -11,5 +17,5 @@ $(VENV)/bin/activate: requirements.txt
 	$(PIP) install -r requirements.txt
 
 clean:
-	rm -rf __pycache__
-	rm -rf $(VENV)
+	$(RM) -rf __pycache__
+	$(RM) -rf $(VENV)
