@@ -1,2 +1,2 @@
 pygame==2.6.1
-pysqlite3==0.5.4
+#pysqlite3==0.5.4
