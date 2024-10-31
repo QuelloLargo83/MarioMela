@@ -1,42 +1,18 @@
 #!/usr/bin/python3
 
 import pygame
-import random
+# import random
 import math
 import os
 from OptionChooser import *
 from ScoreMng import *
+from cfg import *
 
-########################################
-############# IMPOSTAZIONI #############
-########################################
-FPS = 60
-TIMER_meleSet = 1000        # millisecondi intervallo di apparizione mele
-TIMER_giocoSet = 1000       # velocita tempo di gioco
-MAX_TIME = 100              # timeout gioco
-MARIO_X_INIT = 100
-MARIO_Y_INIT = 973
-left = False                # parto con mario girato a dx
-VEL_grav = 2
-MARIO_SPEED = 0.01
-MARIO_ANGLE = random.uniform(0, math.pi*2)
-FONTCOLOR = (255,255,255)   # colore delle scritte
-FONTNAME = 'Consolas'
-BG_IMAGE = 'IMMAGINI/background.png'
-CHOICE_IMAGE = 'IMMAGINI/mushroom.png'
-P1_IMAGE = 'IMMAGINI/mario.png'
-P2_IMAGE = 'IMMAGINI/peach_r.png'
-MELA_IMG = 'IMMAGINI/mela.png'
-GAME_OVER_IMG = 'IMMAGINI/gameover.png'
-MELA_HIT_SOUND = 'SFX/smb_coin.wav' #suono alla collisione con la mela
-MARIO_JUMP_SOUND = 'SFX/marioJump.mp3'
-DB_PATH_NAME = 'DB'
-SCORE_DB_FILE = 'scores.db'
-#################################################
+
 
 # settaggio percorso e file database
 cwd = os.path.dirname(__file__)
-dbfile = cwd + '/' + DB_PATH_NAME +"/"+ SCORE_DB_FILE
+dbfile = cwd +  bars + DB_PATH_NAME + bars + SCORE_DB_FILE
 
 pygame.init()
 
@@ -144,7 +120,7 @@ class mela_c():
 def stop():
     """Definisce cosa avviene in caso di gameover
     """
-    pygame.mixer.music.load('MUSIC/smb_gameover.wav')
+    pygame.mixer.music.load(GAME_OVER_SOUND)
     pygame.mixer.music.play(0)
     pausa = True
 
@@ -223,7 +199,7 @@ def InitMusic():
     """Inizializzazione musica di sistema
     """
     pygame.mixer.pre_init(22050, 16, 2, 8192)
-    pygame.mixer.music.load('MUSIC/maintheme.ogg')
+    pygame.mixer.music.load(MAIN_THEME)
     pygame.mixer.music.play(-1)
 
 def inizializza():
