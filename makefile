@@ -1,5 +1,5 @@
 ifeq ($(OS),Windows_NT)
-	RM = del /F /Q
+	RM = rmdir /s /Q
 else
 	RM = rm -rf
 endif
