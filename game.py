@@ -157,6 +157,7 @@ def stop():
               mario_rect.centery = marioYinit
               global Punteggio
               
+              # inserisco il punteggio attuale nel database
               ScMng.InsertScore(score=Punteggio,timer=MAX_TIME)
               
               # mostro i top scorer
@@ -169,7 +170,8 @@ def stop():
 
               Punteggio = 0
               pausa = False
-
+              
+              
 
             if event.type == pygame.QUIT:   # do comunque la possibilita di uscire
               pygame.quit() 
@@ -310,6 +312,7 @@ while 1:
     if  counter_gioco ==0:
         counter_gioco = MAX_TIME
         stop()        
+        mario_rect, mario, mario_flip = inizializza() # ad ogni game over rifaccio scegliere il personaggio
 
     disegna()
     aggiorna()
