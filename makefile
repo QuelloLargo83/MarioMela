@@ -1,7 +1,7 @@
 ifeq ($(OS),Windows_NT)
 	RM = del /F /Q
 else
-	RM = rm
+	RM = rm -rf
 endif
 
 VENV = venv
@@ -17,5 +17,5 @@ $(VENV)/bin/activate: requirements.txt
 	$(PIP) install -r requirements.txt
 
 clean:
-	$(RM) -rf __pycache__
-	$(RM) -rf $(VENV)
+	$(RM)  __pycache__
+	$(RM)  $(VENV)
