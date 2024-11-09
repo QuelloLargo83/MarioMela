@@ -10,6 +10,7 @@ import math
 SYSTEM: str
 if "linux" in sys.platform: SYSTEM = "Linux"
 elif "win32" in sys.platform: SYSTEM = "Windows"
+elif "darwin" in sys.platform: SYSTEM = "MacOs"
 else: SYSTEM = "Other"
 
 match SYSTEM:    
@@ -17,7 +18,10 @@ match SYSTEM:
         bars = '/'
     case "Windows":
         bars = '\\'
-
+    case "MacOs":
+        bars = '/'
+    case _:
+        bars = '/'
 
 ########################################
 ############# IMPOSTAZIONI #############
