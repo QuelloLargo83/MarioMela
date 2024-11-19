@@ -7,6 +7,7 @@ import os
 from OptionChooser import *
 from ScoreMng import *
 from cfg import *
+from Bowser import *
 
 
 
@@ -113,6 +114,9 @@ class mela_c():
         if mario_rect.colliderect(self.rect):
             self.attrib = (str(self.__getattribute__))          # ricavo un id della mela che ha generato la collisione
             mangia_mela()
+
+bowserobj = Bowser(BOWSER_IMG, width/2, height/2 +100)
+
 
 ############      
 # GAMEOVER #
@@ -236,7 +240,9 @@ def disegna():
     #disegno tempo di gioco
     Label_CounterGioco = myFont.render('TIME: ' + str(counter_gioco), 1, FONTCOLOR)
     screen.blit(Label_CounterGioco, (10, 40))   
-
+    
+    # disegno il nemico
+    bowserobj.disegna(screen)
 
 def collisione():
     """gestione collisione tra i vari oggetti dello schermo
@@ -260,7 +266,7 @@ mario_rect, mario, mario_flip = inizializza()
 ##############
 while 1:
     
-   
+
     mario_rect.centery += VEL_grav #gravita
     
     # EVENTI GESTITI DURANTE IL GIOCO #

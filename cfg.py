@@ -43,6 +43,7 @@ CHOICE_IMAGE = 'IMMAGINI'+ bars + 'mushroom.png'
 P1_IMAGE = 'IMMAGINI'+ bars + 'mario.png'
 P2_IMAGE = 'IMMAGINI'+ bars + 'peach_r.png'
 MELA_IMG = 'IMMAGINI'+ bars + 'mela.png'
+BOWSER_IMG = 'IMMAGINI' + bars + 'bowser.png'
 GAME_OVER_IMG = 'IMMAGINI'+ bars + 'gameover.png'
 GAME_OVER_SOUND = 'MUSIC'+ bars + 'smb_gameover.wav'
 MELA_HIT_SOUND = 'SFX'+ bars + 'smb_coin.wav' #suono alla collisione con la mela
