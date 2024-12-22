@@ -29,7 +29,7 @@ match SYSTEM:
 FPS = 60
 TIMER_meleSet = 1000        # millisecondi intervallo di apparizione mele
 TIMER_giocoSet = 1000       # velocita tempo di gioco
-MAX_TIME = 10             # timeout gioco
+MAX_TIME = 120             # timeout gioco
 MARIO_X_INIT = 100
 MARIO_Y_INIT = 973
 left = False                # parto con mario girato a dx
