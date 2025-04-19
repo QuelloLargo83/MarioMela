@@ -164,6 +164,7 @@ def stop():
             if event.type == pygame.QUIT:   # do comunque la possibilita di uscire
               pygame.quit() 
     
+
 def pausa():
     """gestione pausa gioco
     """
@@ -326,12 +327,17 @@ while 1:
         counter_gioco = MAX_TIME
         stop()        
         mario_rect, mario, mario_flip = inizializza() # ad ogni game over rifaccio scegliere il personaggio
+    
 
     disegna()
     aggiorna()
-    collisione() 
-
-
-
+    collisione() # controllo collisione con le mele
+    bowser_collision = bowserobj.check_collision(mario_rect) # controllo collisione con bowser
     
-    
+
+    # se il personaggio colpisce il cattivo
+    if bowser_collision:
+        bowserobj.collision = 0
+        counter_gioco = MAX_TIME
+        stop()        
+        mario_rect, mario, mario_flip = inizializza() # ad ogni game over rifaccio scegliere il personaggio
