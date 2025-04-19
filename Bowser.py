@@ -15,7 +15,6 @@ class Bowser():
         """
     
         if other_rect.colliderect(self.rect):
-            self.attrib = (str(self.__getattribute__))          # ricavo un id della mela che ha generato la collisione
             self.collision = 1
 
         return self.collision
