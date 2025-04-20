@@ -24,10 +24,28 @@ class Bowser():
         """
         match dir:
             case 1: #right
-                self.rect.centerx += 10
+                self.rect.centerx += 30
             case 2: #left
-                self.rect.centerx -= 10
+                self.rect.centerx -= 30
             case 3: #up
-                self.rect.centery +=10
+                self.rect.centery += 30
             case 4: #down
-                self.rect.centery -=10
+                self.rect.centery -= 30
+        
+
+    def movement_limits(self, screen_width):
+        #############################
+        ## LIMITI MOVIMENTI BOWSER ###
+        #############################
+        #scorrimento infinito a sx
+        if self.rect.right <= 0: 
+                self.rect.right = screen_width-1
+        # scorrimento a dx infinito
+        if self.rect.right >= screen_width:
+                self.rect.left = 1
+        #mario non puo andare sotto il pavimento
+        if self.rect.bottom >= self.y + self.rect.height/2 +1:
+                self.rect.centery = self.y 
+        #mario non puo uscire da sopra        
+        if self.rect.top <=0:
+                self.rect.top = 0

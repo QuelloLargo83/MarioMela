@@ -337,22 +337,8 @@ while 1:
         direzione = random.randint(1,4)
         bowserobj.random_move(direzione)
 
-    #############################
-    ## LIMITI MOVIMENTI BOWSER ###
-    #############################
-    #scorrimento infinito a sx
-    if bowserobj.rect.right <= 0: 
-            bowserobj.rect.right = width-1
-    # scorrimento a dx infinito
-    if bowserobj.rect.right >= width:
-            bowserobj.rect.left = 1
-    #mario non puo andare sotto il pavimento
-    if bowserobj.rect.bottom >= bowserYinit + bowserobj.rect.height/2 +1:
-            bowserobj.rect.centery = bowserYinit 
-    #mario non puo uscire da sopra        
-    if bowserobj.rect.top <=0:
-            bowserobj.rect.top = 0
-
+    # limito i movimenti di bowser
+    bowserobj.movement_limits(width)
 
     disegna()
     aggiorna()
