@@ -115,7 +115,11 @@ class mela_c():
             self.attrib = (str(self.__getattribute__))          # ricavo un id della mela che ha generato la collisione
             mangia_mela()
 
-bowserobj = Bowser(BOWSER_IMG, width/2, height/2 +100)
+# coordinate iniziali di bowser
+bowserXinit = width/2
+bowserYinit = height/2 +100
+# creo bowser
+bowserobj = Bowser(BOWSER_IMG, bowserXinit, bowserYinit)
 
 
 ############      
@@ -332,6 +336,23 @@ while 1:
     if (pygame.time.get_ticks() % 2):
         direzione = random.randint(1,4)
         bowserobj.random_move(direzione)
+
+    #############################
+    ## LIMITI MOVIMENTI BOWSER ###
+    #############################
+    #scorrimento infinito a sx
+    if bowserobj.rect.right <= 0: 
+            bowserobj.rect.right = width-1
+    # scorrimento a dx infinito
+    if bowserobj.rect.right >= width:
+            bowserobj.rect.left = 1
+    #mario non puo andare sotto il pavimento
+    if bowserobj.rect.bottom >= bowserYinit + bowserobj.rect.height/2 +1:
+            bowserobj.rect.centery = bowserYinit 
+    #mario non puo uscire da sopra        
+    if bowserobj.rect.top <=0:
+            bowserobj.rect.top = 0
+
 
     disegna()
     aggiorna()
