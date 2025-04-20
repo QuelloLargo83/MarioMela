@@ -106,8 +106,9 @@ class OptionChooser(Window):
             if (event.type == pygame.KEYDOWN and event.key ==  pygame.K_ESCAPE):
                 pygame.quit()
 
-    ## aggiorna lo schermo
     def aggiorna(self):
+        """aggiorna lo schermo
+        """
         pygame.display.update()
 
     def draw_text(self,phrase,x,y, color):
