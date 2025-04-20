@@ -328,6 +328,10 @@ while 1:
         stop()        
         mario_rect, mario, mario_flip = inizializza() # ad ogni game over rifaccio scegliere il personaggio
     
+    # gestione movimento casuale di bowser
+    if (pygame.time.get_ticks() % 2):
+        direzione = random.randint(1,4)
+        bowserobj.random_move(direzione)
 
     disegna()
     aggiorna()
