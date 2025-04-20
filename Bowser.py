@@ -1,11 +1,12 @@
 import pygame
 
 class Bowser():
-    def __init__(self, image, x,y):
+    def __init__(self, image, x,y, InitMov):
         self.dis = pygame.image.load(image)
         self.x = x                        
         self.y = y
-        self.collision = 0                      
+        self.collision = 0
+        self.InitMov = InitMov                     
         self.rect = self.dis.get_rect(center = (self.x,self.y)) # creo un rettangolo intorno all'oggetto
     def disegna(self, screen):
         screen.blit(self.dis,self.rect)
@@ -24,13 +25,13 @@ class Bowser():
         """
         match dir:
             case 1: #right
-                self.rect.centerx += 30
+                self.rect.centerx += self.InitMov
             case 2: #left
-                self.rect.centerx -= 30
+                self.rect.centerx -= self.InitMov
             case 3: #up
-                self.rect.centery += 30
+                self.rect.centery += self.InitMov
             case 4: #down
-                self.rect.centery -= 30
+                self.rect.centery -= self.InitMov
         
 
     def movement_limits(self, screen_width):

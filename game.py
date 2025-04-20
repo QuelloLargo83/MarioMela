@@ -108,18 +108,25 @@ class mela_c():
         """
         screen.blit(mela_dis,self.rect)
     def check_collision(self,self_rect): 
-        """controllo la collisione tra mario e le mele
+        """controllo la collisione tra personaggi e mele
         """
-        #self.attrib = ''
+
         if mario_rect.colliderect(self.rect):
             self.attrib = (str(self.__getattribute__))          # ricavo un id della mela che ha generato la collisione
             mangia_mela()
 
+        if bowserobj.rect.colliderect(self.rect):
+            self.attrib = (str(self.__getattribute__))          # ricavo un id della mela che ha generato la collisione
+            mangia_mela_bowser()
+
 # coordinate iniziali di bowser
 bowserXinit = width/2
 bowserYinit = height/2 +100
+# range spostamento iniziale
+bowserMovinit = 10 
+
 # creo bowser
-bowserobj = Bowser(BOWSER_IMG, bowserXinit, bowserYinit)
+bowserobj = Bowser(BOWSER_IMG, bowserXinit, bowserYinit, bowserMovinit)
 
 
 ############      
@@ -199,10 +206,16 @@ def mangia_mela():
     Punteggio += 1                  # ad ogni mela aumento il punteggio
     mela_sound.play()               #suono
 
-    # rallento la produzione delle mele
-    # global TIMER_meleSet
-    # TIMER_meleSet = TIMER_meleSet + 1000
-    # pygame.time.set_timer(TIMER_mele,TIMER_meleSet)
+# cancella la mela e diminuisci il punteggio
+def mangia_mela_bowser():
+    for i in range(len(mele)):
+      if mele[i].attrib != '':      # ho inizializzato vuoto quindi quando viene assegnato qualcosa è l'id della mela che ha generata la collisione
+        idx_mela_collisione = i     # appoggio id della mela che ha generato collisione
+    del mele[idx_mela_collisione]   # cancello solo la mela che ha generato la collisione  
+    global Punteggio
+    Punteggio -= 1                  # ad ogni mela mangiata da bowser diminuisco il punteggio
+    mela_sound.play()               #suono
+    bowserobj.InitMov += 5         # aumenta la velocita di movimento di bowser
 
 def InitMusic():
     """Inizializzazione musica di sistema
