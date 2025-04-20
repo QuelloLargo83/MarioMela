@@ -1,5 +1,6 @@
 import pygame
 from pygame._sdl2.video import Window, Renderer, Texture
+import cfg
 
 class OptionChooser(Window):
     """classe per gestione schermata iniziale opzioni
@@ -14,6 +15,9 @@ class OptionChooser(Window):
         self.fontcolor = fontcolor
         self.sfondo = pygame.image.load(bg)
         self.sceltaimg = pygame.image.load(choiceimg)
+        self.fontsize = 25
+        self.playerName = ""
+        self.gettingPlayer = True
         
         # carico i personaggi per la scelta sulla finestra iniziale
         self.personaggio1 = pygame.image.load(p1image)
@@ -61,12 +65,21 @@ class OptionChooser(Window):
         myFont = pygame.font.SysFont(self.font, 36)
         Label_ScegliPers = myFont.render('SCEGLI IL PERSONAGGIO', 1, self.fontcolor)
         self.screen.blit(Label_ScegliPers, (self.p1_rect.centerx, self.p1_rect.centery - self.personaggio1.get_height()))   
-    
+
+        
+        
         ##################################
         #  GESTIONE EVENTI DEI PULSANTI  #
         ##################################
+        
         for event in pygame.event.get():
 
+            ## chiedo inserimento del nome utente
+            while self.gettingPlayer:
+                self.playerName = self.input_player_name()[1]
+                # print("ci siamo " + self.playerName)
+                self.gettingPlayer=False
+                
             ## muovo l'immagine della scelta del personaggio
             if (event.type == pygame.KEYDOWN and event.key == pygame.K_UP):
                 self.scelta_rect.centery = self.p1_rect.centery
@@ -97,3 +110,92 @@ class OptionChooser(Window):
     def aggiorna(self):
         pygame.display.update()
 
+    def draw_text(self,phrase,x,y, color):
+        """disegna una label sullo schermo
+
+        Args:
+            word (_type_): _description_
+            x (_type_): _description_
+            y (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
+        font = pygame.font.SysFont(self.font, self.fontsize)
+        text = font.render("{}".format(phrase), True, color)
+        return self.screen.blit(text,(x,y))
+
+    def input_player_name(self):
+        """chiede il nome dell'utente
+
+        Returns:
+            _type_: la scritta con il nome [0] e il nome stesso [1]
+        """
+        word=""
+        question = "Inserisci il tuo nome : "
+        self.draw_text(question,300,400, (255,255,255)) #example asking name
+        pygame.display.flip()
+        done = True
+        while done:
+            for event in pygame.event.get():
+                if event.type==pygame.QUIT:
+                    pygame.quit()
+    
+                # leggo qualsiasi lettera per formare il nome
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_a:
+                        word+=str(chr(event.key))
+                    if event.key == pygame.K_b:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_c:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_d:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_e:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_f:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_g:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_k:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_h:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_j:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_i:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_l:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_m:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_n:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_o:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_p:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_q:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_r:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_s:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_t:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_u:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_v:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_w:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_y:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_z:
+                        word+=chr(event.key)
+
+                    # mi fermo quando premo return 
+                    if event.key == pygame.K_RETURN:
+                        done=False
+    
+        return self.draw_text(word,300 + len(question)* self.fontsize / 1.5 ,400, (255,0,0)), word

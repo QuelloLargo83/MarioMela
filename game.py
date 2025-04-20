@@ -37,6 +37,7 @@ gameover = pygame.transform.scale2x(gameover) # raddoppio le dimensioni di gameo
 mela_sound = pygame.mixer.Sound(MELA_HIT_SOUND)     
 mariojump_sound = pygame.mixer.Sound(MARIO_JUMP_SOUND)
 Punteggio = 0
+player_name = "player"
 
 # Init oggetto Salvataggio Punteggio
 ScMng = ScoreMng(dbfile, screen) 
@@ -57,10 +58,14 @@ def SchermataIniziale():
                             font=FONTNAME,
                             fontcolor=FONTCOLOR
                             )
+    
 
     while winOption.running == 1:
         winOption.disegnaschermo()
         winOption.aggiorna()
+    
+    global player_name
+    player_name = winOption.playerName
 
     match int(winOption.ret_scelta):
         case 1:
@@ -157,7 +162,8 @@ def stop():
               global Punteggio
               
               # inserisco il punteggio attuale nel database
-              ScMng.InsertScore(score=Punteggio,timer=MAX_TIME)
+              global player_name
+              ScMng.InsertScore(score=Punteggio,timer=MAX_TIME,playerN= player_name)
               
               # mostro i top scorer
               fontScore = pygame.font.SysFont(FONTNAME, 16)
@@ -212,10 +218,10 @@ def mangia_mela_bowser():
       if mele[i].attrib != '':      # ho inizializzato vuoto quindi quando viene assegnato qualcosa è l'id della mela che ha generata la collisione
         idx_mela_collisione = i     # appoggio id della mela che ha generato collisione
     del mele[idx_mela_collisione]   # cancello solo la mela che ha generato la collisione  
-    global Punteggio
-    Punteggio -= 1                  # ad ogni mela mangiata da bowser diminuisco il punteggio
-    mela_sound.play()               #suono
-    bowserobj.InitMov += 5         # aumenta la velocita di movimento di bowser
+   # global Punteggio
+   # Punteggio -= 1                 # ad ogni mela mangiata da bowser diminuisco il punteggio
+    mela_sound.play()               # suono
+    bowserobj.InitMov += 2          # aumenta la velocita di movimento di bowser
 
 def InitMusic():
     """Inizializzazione musica di sistema
