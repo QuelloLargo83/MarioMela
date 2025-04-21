@@ -108,10 +108,12 @@ class mela_c():
         self.y = random.randint(0,height)                       # dimensione random da 0 fino all altezza massima dello schermo i gioco
         self.rect = mela_dis.get_rect(center = (self.x,self.y)) # creo un rettangolo intorno all'oggetto
         self.attrib = ''
+    
     def disegna(self,self_rect):
         """disegna la mela con il suo rettangolo
         """
         screen.blit(mela_dis,self.rect)
+    
     def check_collision(self,self_rect): 
         """controllo la collisione tra personaggi e mele
         """
