@@ -7,6 +7,7 @@ from OptionChooser import *
 from ScoreMng import *
 from cfg import *
 from Bowser import *
+from Mario import *
 
 
 # settaggio percorso e file database
@@ -57,6 +58,9 @@ ScMng = ScoreMng(dbfile, screen)
 
 # Init Oggetto Bowser
 bowserobj = Bowser(BOWSER_IMG, bowserXinit, bowserYinit, bowserMovinit)
+
+# Init Oggetto Protagonista
+MainCharacter = Mario(P1_IMAGE, MARIO_X_INIT, MARIO_Y_INIT)
 
 #####################
 
@@ -266,9 +270,13 @@ def disegna():
     #disegno tempo di gioco
     Label_CounterGioco = myFont.render('TIME: ' + str(counter_gioco), 1, FONTCOLOR)
     screen.blit(Label_CounterGioco, (10, 40))   
+
     
     # disegno il nemico
     bowserobj.disegna(screen)
+
+    # disegno il protagonista (TEST_MARIO)
+    #MainCharacter.disegna(screen)
 
 def collisione():
     """gestione collisione tra i vari oggetti dello schermo
