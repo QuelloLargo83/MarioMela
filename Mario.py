@@ -15,6 +15,9 @@ class Mario():
         """
         screen.blit(self.gameImage,self.rect)
     
+    def loadImage(self, image):
+        self.gameImage = pygame.image.load(image)
+    
     def movement_limits(self, screen_width):
         """ limita i movimenti del personaggio dinamicamente
 

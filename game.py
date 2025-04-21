@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 import pygame
-# import random
 import math
 import os
 from OptionChooser import *
@@ -10,13 +9,11 @@ from cfg import *
 from Bowser import *
 
 
-
 # settaggio percorso e file database
 cwd = os.path.dirname(__file__)
 dbfile = cwd +  bars + DB_PATH_NAME + bars + SCORE_DB_FILE
 
 pygame.init()
-
 
 pygame.display.set_caption("MARIO MELA") #titolo finestra
 
@@ -26,7 +23,7 @@ width = sfondo.get_width()
 height = sfondo.get_height()
 screensize = (width,height)
 screen = pygame.display.set_mode(screensize)
-counter_gioco = MAX_TIME    # secondi di gioco
+counter_gioco = MAX_TIME             # secondi di gioco
 marioXinit = MARIO_X_INIT            # posizione X iniziale di mario all'interno della finestra
 marioYinit = MARIO_Y_INIT            # posizione Y iniziale di mario all'interno della finestra
 mario_speed = MARIO_SPEED
@@ -38,9 +35,30 @@ mela_sound = pygame.mixer.Sound(MELA_HIT_SOUND)
 mariojump_sound = pygame.mixer.Sound(MARIO_JUMP_SOUND)
 Punteggio = 0
 player_name = "player"
+# coordinate iniziali di bowser
+bowserXinit = width/2
+bowserYinit = height/2 +100
+bowserMovinit = 10 # Bowser range spostamento iniziale
+#timer frequenza mele
+TIMER_mele = pygame.USEREVENT
+pygame.time.set_timer(TIMER_mele,TIMER_meleSet) #il secondo parametro indica ogni quanto viene triggerato il timer
+
+#timer di gioco
+Timer_gioco = pygame.USEREVENT +1 
+pygame.time.set_timer(Timer_gioco,TIMER_giocoSet)
+
+
+#######################
+## ISTANZE OGGETTI ####
+#######################
 
 # Init oggetto Salvataggio Punteggio
 ScMng = ScoreMng(dbfile, screen) 
+
+# Init Oggetto Bowser
+bowserobj = Bowser(BOWSER_IMG, bowserXinit, bowserYinit, bowserMovinit)
+
+#####################
 
 def SchermataIniziale():
     """Gestione Schermata iniziale
@@ -94,14 +112,6 @@ def MarioInit(mario):
     mario_rect = mario.get_rect(center = (mariox,marioy)) #creo un rettangolo intorno a mario
 
     return mario_rect,mario_flip
-
-#timer frequenza mele
-TIMER_mele = pygame.USEREVENT
-pygame.time.set_timer(TIMER_mele,TIMER_meleSet) #il secondo parametro indica ogni quanto viene triggerato il timer
-
-#timer di gioco
-Timer_gioco = pygame.USEREVENT +1 
-pygame.time.set_timer(Timer_gioco,TIMER_giocoSet)
 class mela_c():
     def __init__(self):
         self.x = random.randint(0,width)                        # dimensione random da 0 fino alla larghezza massima dello schermo di gioco
@@ -125,16 +135,6 @@ class mela_c():
         if bowserobj.rect.colliderect(self.rect):
             self.attrib = (str(self.__getattribute__))          # ricavo un id della mela che ha generato la collisione
             mangia_mela_bowser()
-
-# coordinate iniziali di bowser
-bowserXinit = width/2
-bowserYinit = height/2 +100
-# range spostamento iniziale
-bowserMovinit = 10 
-
-# creo bowser
-bowserobj = Bowser(BOWSER_IMG, bowserXinit, bowserYinit, bowserMovinit)
-
 
 ############      
 # GAMEOVER #
