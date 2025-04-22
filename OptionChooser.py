@@ -194,6 +194,24 @@ class OptionChooser(Window):
                         word+=chr(event.key)
                     if event.key == pygame.K_z:
                         word+=chr(event.key)
+                    if event.key == pygame.K_1:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_2:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_3:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_4:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_5:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_6:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_7:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_8:
+                        word+=chr(event.key)
+                    if event.key == pygame.K_9:
+                        word+=chr(event.key)
 
                     # mi fermo quando premo return 
                     if event.key == pygame.K_RETURN:
