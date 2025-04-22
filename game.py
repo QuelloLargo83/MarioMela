@@ -91,31 +91,16 @@ def SchermataIniziale():
 
     match int(winOption.ret_scelta):
         case 1:
-            mario = pygame.image.load(P1_IMAGE)
+            MainCharacter.Image = P1_IMAGE #test
+            MainCharacter.gameImage = pygame.image.load(P1_IMAGE) #test
         case 2:
-            mario = pygame.image.load(P2_IMAGE)
+            MainCharacter.Image = P2_IMAGE #test
+            MainCharacter.gameImage = pygame.image.load(P2_IMAGE) #test
     
-    return mario
+    return MainCharacter.gameImage
     ###############################
 
-def MarioInit(mario):
-    """Inizializza il personaggio
 
-    Args:
-        mario (pygame.image): immagine pygame del personaggio
-
-    Returns:
-        _type_: rettangolo del personaggio, rect pers flippato
-    """
-    mario_flip = pygame.transform.flip(mario,True,False) # Mario girato a sx
-
-    #coordinate iniziali di Mario
-    mariox = marioXinit
-    marioy = marioYinit
-
-    mario_rect = mario.get_rect(center = (mariox,marioy)) #creo un rettangolo intorno a mario
-
-    return mario_rect,mario_flip
 class mela_c():
     def __init__(self):
         self.x = random.randint(0,width)                        # dimensione random da 0 fino alla larghezza massima dello schermo di gioco
@@ -131,8 +116,8 @@ class mela_c():
     def check_collision(self,self_rect): 
         """controllo la collisione tra personaggi e mele
         """
-
-        if mario_rect.colliderect(self.rect):
+        if MainCharacter.rect.colliderect(self.rect):
+        #if mario_rect.colliderect(self.rect):
             self.attrib = (str(self.__getattribute__))          # ricavo un id della mela che ha generato la collisione
             mangia_mela()
 
@@ -163,8 +148,7 @@ def stop():
               del mele[0:-1]                #cancello tutte le mele
             
               InitMusic()
-              mario_rect.centerx = marioXinit
-              mario_rect.centery = marioYinit
+              MainCharacter.rePositionInit #TEST
               global Punteggio
               
               # inserisco il punteggio attuale nel database
@@ -195,7 +179,7 @@ def pausa():
     pygame.mixer.music.pause()
 
     #avviso che si puo ricominciare
-    myFont = pygame.font.SysFont(FONTNAME, 14)
+    myFont = pygame.font.SysFont(FONTNAME, 25)
     Label = myFont.render("PREMI SPAZIO PER RICOMINCIARE", 1, FONTCOLOR)
     screen.blit(Label, (width/2-60,height/2+100))
     aggiorna()
@@ -245,7 +229,7 @@ def inizializza():
     
     InitMusic()
     mario = SchermataIniziale()
-    mario_rect, mario_flip = MarioInit(mario)
+    mario_rect, mario_flip = MainCharacter.reInit(mario) #TEST
 
     return mario_rect, mario, mario_flip
     
@@ -255,14 +239,13 @@ def disegna():
     global left
     screen.blit(sfondo,(0,0))
     if left == False:
-        screen.blit(mario,mario_rect) 
+        MainCharacter.disegna(screen) #TEST
     if left == True:
-        screen.blit(mario_flip,mario_rect)
+        MainCharacter.disegna_flip(screen) # TEST
     for m in mele:
         m.disegna(m.rect)
 
     #disegno il punteggio
-    # black=(0,0,0) #scritta nera
     myFont = pygame.font.SysFont(FONTNAME, 36)
     Label_Punteggio = myFont.render('SCORE: ' + str(Punteggio), 1, FONTCOLOR)
     screen.blit(Label_Punteggio, (10, 10))   
@@ -275,8 +258,7 @@ def disegna():
     # disegno il nemico
     bowserobj.disegna(screen)
 
-    # disegno il protagonista (TEST_MARIO)
-    #MainCharacter.disegna(screen)
+
 
 def collisione():
     """gestione collisione tra i vari oggetti dello schermo
@@ -300,8 +282,7 @@ mario_rect, mario, mario_flip = inizializza()
 ##############
 while 1:
     
-
-    mario_rect.centery += VEL_grav #gravita
+    MainCharacter.rect.centery += VEL_grav #TEST
     
     # EVENTI GESTITI DURANTE IL GIOCO #
     for event in pygame.event.get():
@@ -323,17 +304,19 @@ while 1:
 
         # muovo mario con le frecce
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT):
-            mario_rect.centerx += 20
+            MainCharacter.rect.centerx += 20 #TEST
             left = False
+        
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT):
-            mario_rect.centerx -= 20 
+            MainCharacter.rect.centerx -=20 #TEST
             left = True
+        
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_UP):
             mariojump_sound.play()
-            mario_rect.centery -= 80
+            MainCharacter.rect.centery -= 80 #TEST
             
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN):
-            mario_rect.centery += 20
+            MainCharacter.rect.centery +=20 #TEST
 
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
             pausa()
@@ -341,19 +324,8 @@ while 1:
     #############################
     ## LIMITI MOVIMENTI MARIO ###
     #############################
-    #scorrimento infinito a sx
-    if mario_rect.right <= 0: 
-            mario_rect.right = width-1
-    # scorrimento a dx infinito
-    if mario_rect.right >= width:
-            mario_rect.left = 1
-    #mario non puo andare sotto il pavimento
-    if mario_rect.bottom >= marioYinit + mario_rect.height/2 +1:
-            mario_rect.centery = marioYinit 
-    #mario non puo uscire da sopra        
-    if mario_rect.top <=0:
-            mario_rect.top = 0
-
+    MainCharacter.movement_limits(width) #TEST
+  
 
     #se scade tempo di gioco
     if  counter_gioco ==0:
@@ -381,3 +353,4 @@ while 1:
         counter_gioco = MAX_TIME
         stop()        
         mario_rect, mario, mario_flip = inizializza() # ad ogni game over rifaccio scegliere il personaggio
+        

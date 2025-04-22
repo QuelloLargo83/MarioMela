@@ -4,8 +4,12 @@ class Mario():
     def __init__(self, image, x,y):
         self.x = x
         self.y = y
+        self.xInit = x # mem coordinate iniziali
+        self.yInit = y # mem coordinate iniziali
         self.gameImage = pygame.image.load(image)
+        self.Image = image
         self.rect = self.gameImage.get_rect(center = (self.x,self.y)) # creo un rettangolo intorno all'oggetto
+        self.gameImageFlip = pygame.transform.flip(self.gameImage,True,False) # personaggio girato 
 
     def disegna (self, screen):
         """disegna il personaggio sullo schermo
@@ -14,6 +18,22 @@ class Mario():
             screen (_type_): _description_
         """
         screen.blit(self.gameImage,self.rect)
+    
+    def reInit(self, gameImage):
+        self.x = self.xInit
+        self.y = self.yInit
+        self.gameImage = gameImage
+        self.rect = self.gameImage.get_rect(center = (self.x,self.y))
+        self.gameImageFlip = pygame.transform.flip(self.gameImage,True,False) # personaggio girato 
+        
+        return self.rect, self.gameImageFlip
+    
+    def rePositionInit(self):
+        self.x = self.xInit
+        self.y = self.yInit
+    
+    def disegna_flip(self, screen):
+        screen.blit(self.gameImageFlip,self.rect)
     
     def loadImage(self, image):
         self.gameImage = pygame.image.load(image)
