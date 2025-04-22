@@ -104,7 +104,7 @@ def SchermataIniziale():
 class mela_c():
     def __init__(self):
         self.x = random.randint(0,width)                        # dimensione random da 0 fino alla larghezza massima dello schermo di gioco
-        self.y = random.randint(0,height)                       # dimensione random da 0 fino all altezza massima dello schermo i gioco
+        self.y = random.randint(0,height - 55)                       # non devono comparire sotto al pavimento (altezza schermo - altezza pavimento)
         self.rect = mela_dis.get_rect(center = (self.x,self.y)) # creo un rettangolo intorno all'oggetto
         self.attrib = ''
     

@@ -39,6 +39,11 @@ class Bowser():
         
 
     def movement_limits(self, screen_width):
+        """impone movimenti limitati a bowser nello schermo
+
+        Args:
+            screen_width (_type_): larghezza schermo
+        """
         #############################
         ## LIMITI MOVIMENTI BOWSER ###
         #############################
