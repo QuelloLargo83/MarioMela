@@ -5,9 +5,13 @@ class Bowser():
         self.dis = pygame.image.load(image)
         self.x = x                        
         self.y = y
+        self.Xinit = x # mem posizione iniziale
+        self.Yinit = y # mem posizione iniziale
         self.collision = 0
-        self.InitMov = InitMov                     
+        self.InitMov = InitMov
+        self.InitMovMem = InitMov # mem init mov                     
         self.rect = self.dis.get_rect(center = (self.x,self.y)) # creo un rettangolo intorno all'oggetto
+    
     def disegna(self, screen):
         screen.blit(self.dis,self.rect)
 
@@ -50,3 +54,8 @@ class Bowser():
         #mario non puo uscire da sopra        
         if self.rect.top <=0:
                 self.rect.top = 0
+    
+    def reinitMovDisplacement(self):
+        """reset range movimento bowser
+        """
+        self.InitMov = self.InitMovMem

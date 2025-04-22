@@ -140,6 +140,7 @@ def stop():
     Label = myFont.render("PREMI SPAZIO PER RICOMINCIARE", 1, FONTCOLOR)
     screen.blit(Label, (width/2-60,height/2+100))
     screen.blit(gameover,(width/2 - 130,height/2)) #disegno gameover
+    bowserobj.reinitMovDisplacement()
     aggiorna()
 
     while pausa:
@@ -165,7 +166,6 @@ def stop():
 
               Punteggio = 0
               pausa = False
-              
               
 
             if event.type == pygame.QUIT:   # do comunque la possibilita di uscire
