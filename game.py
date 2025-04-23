@@ -102,22 +102,22 @@ def SchermataIniziale():
 
 
 class mela_c():
-    def __init__(self):
+    def __init__(self, image):
         self.x = random.randint(0,width)                        # dimensione random da 0 fino alla larghezza massima dello schermo di gioco
         self.y = random.randint(0,height - 55)                       # non devono comparire sotto al pavimento (altezza schermo - altezza pavimento)
-        self.rect = mela_dis.get_rect(center = (self.x,self.y)) # creo un rettangolo intorno all'oggetto
+        self.image = image
+        self.rect = self.image.get_rect(center = (self.x,self.y)) # creo un rettangolo intorno all'oggetto
         self.attrib = ''
     
     def disegna(self):
         """disegna la mela con il suo rettangolo
         """
-        screen.blit(mela_dis,self.rect)
+        screen.blit(self.image,self.rect)
     
     def check_collision(self): 
         """controllo la collisione tra personaggi e mele
         """
         if MainCharacter.rect.colliderect(self.rect):
-        #if mario_rect.colliderect(self.rect):
             self.attrib = (str(self.__getattribute__))          # ricavo un id della mela che ha generato la collisione
             mangia_mela()
 
@@ -225,7 +225,7 @@ def inizializza():
     """
     global mele
     mele = []
-    mele.append(mela_c())           #inizio a popolare la la lista di istanze della classe mele_c
+    mele.append(mela_c(mela_dis))           #inizio a popolare la la lista di istanze della classe mele_c
     
     InitMusic()
     mario = SchermataIniziale()
@@ -295,7 +295,7 @@ while 1:
         
         # aggiungo le mele a tempo
         if event.type == TIMER_mele:
-            mele.append(mela_c())
+            mele.append(mela_c(mela_dis))
 
         if event.type == Timer_gioco:
             #global counter_gioco
