@@ -108,12 +108,12 @@ class mela_c():
         self.rect = mela_dis.get_rect(center = (self.x,self.y)) # creo un rettangolo intorno all'oggetto
         self.attrib = ''
     
-    def disegna(self,self_rect):
+    def disegna(self):
         """disegna la mela con il suo rettangolo
         """
         screen.blit(mela_dis,self.rect)
     
-    def check_collision(self,self_rect): 
+    def check_collision(self): 
         """controllo la collisione tra personaggi e mele
         """
         if MainCharacter.rect.colliderect(self.rect):
@@ -243,7 +243,7 @@ def disegna():
     if left == True:
         MainCharacter.disegna_flip(screen) # TEST
     for m in mele:
-        m.disegna(m.rect)
+        m.disegna()
 
     #disegno il punteggio
     myFont = pygame.font.SysFont(FONTNAME, 36)
@@ -264,7 +264,7 @@ def collisione():
     """gestione collisione tra i vari oggetti dello schermo
     """
     for m in mele:
-        m.check_collision(m.rect)
+        m.check_collision()
 
 def aggiorna():
     """gestione aggiornamento schermo
