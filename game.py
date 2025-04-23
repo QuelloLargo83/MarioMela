@@ -102,9 +102,9 @@ def SchermataIniziale():
 
 
 class mela_c():
-    def __init__(self, image):
-        self.x = random.randint(0,width)                        # dimensione random da 0 fino alla larghezza massima dello schermo di gioco
-        self.y = random.randint(0,height - 55)                       # non devono comparire sotto al pavimento (altezza schermo - altezza pavimento)
+    def __init__(self, image, screen_width, screen_height):
+        self.x = random.randint(0,screen_width)                        # dimensione random da 0 fino alla larghezza massima dello schermo di gioco
+        self.y = random.randint(0,screen_height - 55)                       # non devono comparire sotto al pavimento (altezza schermo - altezza pavimento)
         self.image = image
         self.rect = self.image.get_rect(center = (self.x,self.y)) # creo un rettangolo intorno all'oggetto
         self.attrib = ''
@@ -225,7 +225,7 @@ def inizializza():
     """
     global mele
     mele = []
-    mele.append(mela_c(mela_dis))           #inizio a popolare la la lista di istanze della classe mele_c
+    mele.append(mela_c(mela_dis, width, height))           #inizio a popolare la la lista di istanze della classe mele_c
     
     InitMusic()
     mario = SchermataIniziale()
@@ -295,7 +295,7 @@ while 1:
         
         # aggiungo le mele a tempo
         if event.type == TIMER_mele:
-            mele.append(mela_c(mela_dis))
+            mele.append(mela_c(mela_dis, width, height))
 
         if event.type == Timer_gioco:
             #global counter_gioco
