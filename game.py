@@ -304,19 +304,19 @@ while 1:
 
         # muovo mario con le frecce
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT):
-            MainCharacter.rect.centerx += 20 #TEST
+            MainCharacter.rect.centerx += 20
             left = False
         
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT):
-            MainCharacter.rect.centerx -=20 #TEST
+            MainCharacter.rect.centerx -=20
             left = True
         
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_UP):
             mariojump_sound.play()
-            MainCharacter.rect.centery -= 80 #TEST
+            MainCharacter.rect.centery -= 80
             
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN):
-            MainCharacter.rect.centery +=20 #TEST
+            MainCharacter.rect.centery +=20
 
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
             pausa()
