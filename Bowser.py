@@ -64,3 +64,19 @@ class Bowser():
         """reset range movimento bowser
         """
         self.InitMov = self.InitMovMem
+    
+    def mangia_mela(self, mele_array, _mela_sound):
+        """definisce cosa succede quando bowser mangia una mela
+
+        Args:
+            mele_array (array of mela obj): array con le mele create a schermo
+            _mela_sound (pygame.sound): suono da riprodurre alla collisione
+        """
+        for i in range(len(mele_array)):
+            if mele_array[i].attrib != '':      # ho inizializzato vuoto quindi quando viene assegnato qualcosa è l'id della mela che ha generata la collisione
+                idx_mela_collisione = i     # appoggio id della mela che ha generato collisione
+        
+        del mele_array[idx_mela_collisione]   # cancello solo la mela che ha generato la collisione  
+                   
+        _mela_sound.play()         # suono
+        self.InitMov += 2          # aumenta la velocita di movimento di bowser

@@ -125,6 +125,7 @@ class mela_c():
             self.attrib = (str(self.__getattribute__))          # ricavo un id della mela che ha generato la collisione
             mangia_mela_bowser()
 
+
 ############      
 # GAMEOVER #
 ############
@@ -194,25 +195,14 @@ def pausa():
 def mangia_mela():
     """gestione evento collisione tra Mario e la mela
     """
-    for i in range(len(mele)):
-      if mele[i].attrib != '':      # ho inizializzato vuoto quindi quando viene assegnato qualcosa è l'id della mela che ha generata la collisione
-        idx_mela_collisione = i     # appoggio id della mela che ha generato collisione
-    del mele[idx_mela_collisione]   # cancello solo la mela che ha generato la collisione  
     global Punteggio
-    Punteggio += 1                  # ad ogni mela aumento il punteggio
-    mela_sound.play()               #suono
+    Punteggio = MainCharacter.mangia_mela(mele,mela_sound, Punteggio)
 
-# cancella la mela e diminuisci il punteggio
+
 def mangia_mela_bowser():
-    for i in range(len(mele)):
-      if mele[i].attrib != '':      # ho inizializzato vuoto quindi quando viene assegnato qualcosa è l'id della mela che ha generata la collisione
-        idx_mela_collisione = i     # appoggio id della mela che ha generato collisione
-    del mele[idx_mela_collisione]   # cancello solo la mela che ha generato la collisione  
-   # global Punteggio
-   # Punteggio -= 1                 # ad ogni mela mangiata da bowser diminuisco il punteggio
-    mela_sound.play()               # suono
-    bowserobj.InitMov += 2          # aumenta la velocita di movimento di bowser
+    bowserobj.mangia_mela(mele, mela_sound)
 
+    
 def InitMusic():
     """Inizializzazione musica di sistema
     """
